@@ -5,7 +5,7 @@
 var map = new Mazemap.Map({
   // container id specified in the HTML
   container: "map",
-  campuses: 159,
+  campuses: "default",
   // initial position in lngLat format
   center: { lng: 145.1327, lat: -37.9131 }, // longitude & latitude coordinates of Monash University Clayton Campus
 

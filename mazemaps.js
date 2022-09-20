@@ -5,7 +5,7 @@
 var map = new Mazemap.Map({
   // container id specified in the HTML
   container: "map",
-  campuses: "default",
+  campuses: 159,
   // initial position in lngLat format
   center: { lng: 145.1327, lat: -37.9131 }, // longitude & latitude coordinates of Monash University Clayton Campus
 
@@ -20,33 +20,26 @@ map.addControl(new Mazemap.mapboxgl.NavigationControl());
 /**
  * On load of the map
  */
-map.on("load", function () {
-  // MazeMap ready
 
-  var spearCoordinates = { lng: 145.13433289910176, lat: -37.91301299847796 };
-  var firepitCoordinates = {
-    lng: 145.13278060280857,
-    lat: -37.913076644295764,
-  };
-
-  var locationsList = [spearCoordinates, firepitCoordinates];
-
-  // For all locations in locationsList, create a marker
-  for (let i = 0; i < locationsList.length; i++) {
-    var coordinates = locationsList[i];
-    createMarkers(map, coordinates);
-  }
-  // createMarkers(map, spear_coordinates);
-  map.on("click", onMapClick);
+map.on("load", async function () {
+  fetch("./locations.json")
+    .then((response) => {
+      return response.json();
+    })
+    .then((locationsData) => {
+      // For all locations in locationsList, create a marker
+      for (item in locationsData) {
+        let location = locationsData[item];
+        createMarkers(map, location["lnglat"]);
+      }
+      map.on("click", onMapClick);
+    });
 });
 
 /**
  * Creating a marker at a specified location on the map
  */
 function createMarkers(map, lngLat) {
-  // var centreCoordinate = map.getCenter();
-  // var coordinates = { lng: 145.1327, lat: -37.9131, zLevel: 1 };
-  // var coordinates = { lng: longitude, lat: latitude, zLevel: 1 };
   var marker = new Mazemap.MazeMarker({
     color: "MazeBlue",
     size: 40,

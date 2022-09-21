@@ -22,6 +22,14 @@ map.addControl(new Mazemap.mapboxgl.NavigationControl());
  */
 
 map.on("load", async function () {
+  loadLocations();
+  map.on("click", onMapClick);
+});
+
+/**
+ * Function to load locations and add makrers and popups
+ */
+function loadLocations() {
   fetch("./locations.json")
     .then((response) => {
       return response.json();
@@ -29,17 +37,26 @@ map.on("load", async function () {
     .then((locationsData) => {
       // For all locations in locationsList, create a marker
       for (item in locationsData) {
+        console.log(locationsData[item]);
         let location = locationsData[item];
-        createMarkers(map, location["lnglat"]);
+        if (location["lnglat"]) {
+          let marker = createMarker(map, location["lnglat"]);
+          createPopup(
+            marker,
+            location["title"],
+            location["description"],
+            location["link"]
+          );
+        }
       }
-      map.on("click", onMapClick);
+      // map.on("click", onMapClick);
     });
-});
+}
 
 /**
  * Creating a marker at a specified location on the map
  */
-function createMarkers(map, lngLat) {
+function createMarker(map, lngLat) {
   var marker = new Mazemap.MazeMarker({
     color: "MazeBlue",
     size: 40,
@@ -54,21 +71,22 @@ function createMarkers(map, lngLat) {
     .setLngLat(lngLat)
     .addTo(map);
 
-  createPopup(marker);
+  // createPopup(marker);
+  return marker;
+}
 
-  /**
-   * Creating the popups which show when the markers are clicked
-   */
-  function createPopup(marker) {
-    var popup = new Mazemap.Popup({
-      closeOnClick: true,
-      offset: [0, -27],
-    }).setHTML(
-      '<h3>AR experience</h3><p>Explanation of the indegenous location point </p><p style="max-width: 200px;"> Click the <a href = "https://esol-michelle-chen.github.io/MonkeyPox/" target="_blank"> link</a> and scan the AR marker to view an AR experience</p>'
-    );
+/**
+ * Creating the popups which show when the markers are clicked
+ */
+function createPopup(marker, title, description, link) {
+  var popup = new Mazemap.Popup({
+    closeOnClick: true,
+    offset: [0, -27],
+  }).setHTML(
+    `<h3>${title}</h3><p>${description} </p><p style="max-width: 200px;"> Click the <a href = ${link} target="_blank"> link</a> and scan the AR marker to view an AR experience</p>`
+  );
 
-    marker.setPopup(popup);
-  }
+  marker.setPopup(popup);
 }
 
 // FOR DEV PURPOSES TO HELP FIGURE OUT COORDINATES OF LOCATIONS ON MAP
@@ -81,5 +99,15 @@ function onMapClick(e) {
   var lngLat = e.lngLat;
   console.log(lngLat);
   console.log(Mazemap.Data.getPoiAt(lngLat, 1));
-  createMarkers(map, lngLat);
+  createMarker(map, lngLat);
+}
+
+/**
+ * Side navigation
+ */
+function openNav() {
+  document.getElementById("menuBar").style.width = "250px";
+}
+function closeNav() {
+  document.getElementById("menuBar").style.width = "0";
 }

@@ -124,11 +124,12 @@ function closeNav() {
 /**
  * Live location
  */
-// var liveLocation = document.getElementById("currentLocation");
+
+// Function which computes the live location of the device
 function computeLiveLocation() {
-  if (navigator.geolocation) {
+  if (window.navigator.geolocation) {
     return new Promise((res, rej) => {
-      navigator.geolocation.getCurrentPosition(res, rej);
+      window.navigator.geolocation.getCurrentPosition(res, rej);
     });
   } else {
     // liveLocation.innerHTML = "Geolocation is not supported by this browser";
@@ -136,30 +137,7 @@ function computeLiveLocation() {
   }
 }
 
-async function getDirections() {
-  // Compute live location coorodinates
-  const position = await computeLiveLocation();
-  Promise.resolve(position);
-
-  var latitude = position.coords.latitude;
-  var longitude = position.coords.longitude;
-  console.log(parseFloat(latitude));
-  var liveCoordinates = {
-    lngLat: { lng: longitude, lat: latitude },
-    zLevel: 0,
-  };
-  var start = {
-    lngLat: { lng: 145.13433289910176, lat: -37.91301299847796 },
-    zLevel: 0,
-  };
-  var dest = {
-    lngLat: { lng: 145.13454580933677, lat: -37.91235021393629 },
-    zLevel: 0,
-  };
-
-  setRoute(liveCoordinates, dest);
-}
-
+// Function for route controller
 function setRoute(start, dest) {
   var routeController = new Mazemap.RouteController(map, {
     routeLineColorPrimary: "#0099EA",
@@ -175,6 +153,27 @@ function setRoute(start, dest) {
     var bounds = Mazemap.Util.Turf.bbox(geojson);
     map.fitBounds(bounds, { padding: 100 });
   });
+}
+
+// Main function for getting directions
+async function getDirections() {
+  // Compute live location coorodinates
+  const position = await computeLiveLocation();
+  Promise.resolve(position);
+
+  var latitude = position.coords.latitude;
+  var longitude = position.coords.longitude;
+  var liveCoordinates = {
+    lngLat: { lng: longitude, lat: latitude },
+    zLevel: 0,
+  };
+  console.log(liveCoordinates);
+  var dest = {
+    lngLat: { lng: 145.13454580933677, lat: -37.91235021393629 },
+    zLevel: 0,
+  };
+
+  setRoute(liveCoordinates, dest);
 }
 
 /**

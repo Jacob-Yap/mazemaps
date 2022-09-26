@@ -21,6 +21,16 @@ map.addControl(new Mazemap.mapboxgl.NavigationControl());
  * On load of the map
  */
 
+function dotMarker(map, lnglat) {
+  window.blueDot = new Mazemap.BlueDot({
+    map: map,
+  })
+    .setZLevel(1)
+    .setAccuracy(10)
+    .setLngLat(lnglat)
+    .show();
+}
+
 map.on("load", async function () {
   loadLocations();
 
@@ -48,7 +58,7 @@ function setLocations(locationsData) {
     console.log(locationsData[item]);
     let location = locationsData[item];
     if (location["lnglat"]) {
-      let marker = createMarker(map, location["lnglat"]);
+      let marker = createMarker(map, location["lnglat"], "MazeBlue", "AR");
       createPopup(
         marker,
         location["title"],
@@ -61,15 +71,15 @@ function setLocations(locationsData) {
 /**
  * Creating a marker at a specified location on the map
  */
-function createMarker(map, lngLat) {
+function createMarker(map, lngLat, colour, icon, dot) {
   var marker = new Mazemap.MazeMarker({
-    color: "MazeBlue",
+    color: colour,
     size: 40,
     zLevel: 1,
     innerCircle: true,
-    glyph: "AR",
+    glyph: icon,
     glyphSize: 12,
-    glyphColor: "MazeBlue",
+    glyphColor: colour,
 
     preventClickBubble: false, // Allow click to go through to global map layer
   })
@@ -77,6 +87,10 @@ function createMarker(map, lngLat) {
     .addTo(map);
 
   // createPopup(marker);
+  if (dot) {
+    dotMarker(map, lngLat);
+  }
+
   return marker;
 }
 
@@ -145,6 +159,8 @@ async function getDirections() {
 
   // Route
   setRoute(liveCoordinates, dest);
+  createMarker(map, { lng: longitude, lat: latitude }, "red", "A", true);
+
   closeNav();
 }
 // Function which computes the live location of the device
@@ -168,7 +184,7 @@ function setRoute(start, dest) {
 
   Mazemap.Data.getRouteJSON(start, dest).then(function (geojson) {
     console.log("@ geojson", geojson);
-
+    // routeController.clear();
     routeController.setPath(geojson);
 
     // Fit the map bounds to the path bounding box

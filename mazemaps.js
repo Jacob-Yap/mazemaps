@@ -96,6 +96,7 @@ function createPopup(marker, title, description, link) {
 
 function setIndigenousLocations() {
   setLocations(indigenousLocations);
+  closeNav();
 }
 
 // FOR DEV PURPOSES TO HELP FIGURE OUT COORDINATES OF LOCATIONS ON MAP
@@ -124,7 +125,28 @@ function closeNav() {
 /**
  * Live location
  */
+// Main function for getting directions
+async function getDirections() {
+  // Compute live location coorodinates
+  const position = await computeLiveLocation();
+  Promise.resolve(position);
 
+  var latitude = position.coords.latitude;
+  var longitude = position.coords.longitude;
+  var liveCoordinates = {
+    lngLat: { lng: longitude, lat: latitude },
+    zLevel: 0,
+  };
+  console.log(liveCoordinates);
+  var dest = {
+    lngLat: { lng: 145.13454580933677, lat: -37.91235021393629 },
+    zLevel: 0,
+  };
+
+  // Route
+  setRoute(liveCoordinates, dest);
+  closeNav();
+}
 // Function which computes the live location of the device
 function computeLiveLocation() {
   if (window.navigator.geolocation) {
@@ -155,36 +177,15 @@ function setRoute(start, dest) {
   });
 }
 
-// Main function for getting directions
-async function getDirections() {
-  // Compute live location coorodinates
-  const position = await computeLiveLocation();
-  Promise.resolve(position);
-
-  var latitude = position.coords.latitude;
-  var longitude = position.coords.longitude;
-  var liveCoordinates = {
-    lngLat: { lng: longitude, lat: latitude },
-    zLevel: 0,
-  };
-  console.log(liveCoordinates);
-  var dest = {
-    lngLat: { lng: 145.13454580933677, lat: -37.91235021393629 },
-    zLevel: 0,
-  };
-
-  setRoute(liveCoordinates, dest);
-}
-
 /**
  * Search control
  */
 
-// var searchController = new Mazemap.Search.searchController({
+// var searchController = new Mazemap.Search.SearchController({
 //   campusid: 159,
 //   rows: 10,
-//   start:0,
-//   page:0,
+//   start: 0,
+//   page: 0,
 //   wihtpois: true,
 //   withbuilding: false,
 //   withtype: false,
@@ -192,7 +193,7 @@ async function getDirections() {
 //   resultsFormat: "geojson",
 // });
 
-// var searchInput = new Mazemap.Search.searchInput({
+// var searchInput = new Mazemap.Search.SearchInput({
 //   container: document.getElementById("searchBar"),
 //   input: document.getElementById("searchInput"),
 //   suggestions: document.getElementById("suggestions"),

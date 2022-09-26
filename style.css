@@ -82,3 +82,14 @@ body {
   border: 0;
   display: inline-block;
 }
+
+/* Search control*/
+.search-control {
+  position: absolute;
+  margin-right: calc((100% - 20px) * (-1 / 2));
+  top: 10px;
+  width: calc(100% - 20px);
+  right: 55%;
+  max-width: 300px;
+  z-index: 999;
+}

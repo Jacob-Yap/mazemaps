@@ -40,22 +40,34 @@
   <!-- Side Navigation -->
 
   <div id="menuControl" class="menuIcon">
-    <!-- <button style="font-size: 20px; cursor: pointer" onclick="openNav()"></button>
-      &#9776; Menu
-    </button> -->
     <button type="button" class="btn btn-light"style="font-size:20px;cursor:pointer" onclick="openNav()">&#9776; Menu</button>
-
   </div>
 
+  <!-- Menu screen-->
   <div id="menuBar" class="menu">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
       >&times;</a
     >
-    <div id="controls" class="menuControls">
-      MENU</br>
-      
+    <div id="controls" class="menuControls">MENU</br></div>
+    <div class="list-group">
+      <button type="button" class="list-group-item list-group-item-action" aria-current="true" onclick="setIndigenousLocations()">Locations</button>
+      <button type="button" class="list-group-item list-group-item-action" onclick="getDirections()">Directions</button>
+      <button type="button" class="list-group-item list-group-item-action">Search</button>
+
     </div>
   </div>
 
+  <!-- Live location-->
 
-</body>
+  <p id="currentLocation"></p>
+
+  <!-- Search Bar -->
+  <!-- <div id="map" aria-label="map view" tabindex="1" class="mazemap"></div>
+  <div id="searchBar" class='search-control'>
+    <form id="searchForm" class="search-form default">
+      <input tabindex="0" id="searchInput" class="search-input" autocomplete="off" type="text" name='search' placeholder='Search'>
+      <button id="submitBtn" type="submit" style="display: none;">Search</button>
+    </form>
+    <div id="suggestions" class="search-suggestions default"></div>
+  </div>
+</body> -->

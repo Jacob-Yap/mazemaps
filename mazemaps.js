@@ -172,7 +172,8 @@ function showLocation(position, locationController, routeController, dest) {
         lat: position.coords.latitude,
       },
     },
-    dest
+    dest,
+    true
   );
   // updateDotLocation(locationController, {
   //   lng: position.coords.longitude,
@@ -237,7 +238,7 @@ async function getDirections() {
     routeLineColorPrimary: "#0099EA",
     routeLineColorSecondary: "#888888",
   });
-  setRoute(routeController, liveCoordinates, dest);
+  setRoute(routeController, liveCoordinates, dest, false);
   createMarker(map, { lng: longitude, lat: latitude }, "red", "A", true);
   var locationController = dotMarker(map, { lng: longitude, lat: latitude });
   liveLocationUpdate(locationController, routeController, dest);
@@ -256,23 +257,24 @@ function computeLiveLocation() {
 }
 
 // Function for route controller
-function setRoute(routeController, start, dest) {
+function setRoute(routeController, start, dest, reroute) {
   // var routeController = new Mazemap.RouteController(map, {
   //   routeLineColorPrimary: "#0099EA",
   //   routeLineColorSecondary: "#888888",
   // });
-
-  console.log("-- ROUTED --");
-  console.log(start);
   Mazemap.Data.getRouteJSON(start, dest).then(function (geojson) {
     // console.log("@ geojson", geojson);
     // routeController.clear();
     routeController.setPath(geojson);
 
     // Fit the map bounds to the path bounding box
-    var bounds = Mazemap.Util.Turf.bbox(geojson);
-    map.fitBounds(bounds, { padding: 100 });
+    if (!reroute) {
+      var bounds = Mazemap.Util.Turf.bbox(geojson);
+      map.fitBounds(bounds, { padding: 100 });
+    }
   });
+  console.log("-- ROUTED --");
+  console.log(start);
 }
 
 /**

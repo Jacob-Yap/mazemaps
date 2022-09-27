@@ -21,19 +21,12 @@ map.addControl(new Mazemap.mapboxgl.NavigationControl());
  * On load of the map
  */
 
-function dotMarker(map, lnglat) {
-  window.blueDot = new Mazemap.BlueDot({
-    map: map,
-  })
-    .setZLevel(1)
-    .setAccuracy(10)
-    .setLngLat(lnglat)
-    .show();
-}
-
 map.on("load", async function () {
   loadLocations();
-
+  // var intervalID = window.setInterval(function () {
+  /// call your function here
+  // liveLocationUpdate();
+  // }, 1000);
   // map.on("click", onMapClick);  // Create a marker wherever the user clicks
 });
 
@@ -71,7 +64,7 @@ function setLocations(locationsData) {
 /**
  * Creating a marker at a specified location on the map
  */
-function createMarker(map, lngLat, colour, icon, dot) {
+function createMarker(map, lngLat, colour, icon) {
   var marker = new Mazemap.MazeMarker({
     color: colour,
     size: 40,
@@ -86,13 +79,12 @@ function createMarker(map, lngLat, colour, icon, dot) {
     .setLngLat(lngLat)
     .addTo(map);
 
-  // createPopup(marker);
-  if (dot) {
-    dotMarker(map, lngLat);
-  }
-
   return marker;
 }
+// function createFollowMarker(map, lnglat) {
+//   // createPopup(marker);
+//   var dotLocationController = dotMarker(map, lngLat);
+// }
 
 /**
  * Creating the popups which show when the markers are clicked
@@ -111,6 +103,71 @@ function createPopup(marker, title, description, link) {
 function setIndigenousLocations() {
   setLocations(indigenousLocations);
   closeNav();
+}
+
+// Creates a blue dot marker and sets it at the specified location on the map
+function dotMarker(map, lnglat) {
+  var blueDot = new Mazemap.BlueDot({
+    map: map,
+  })
+    .setZLevel(1)
+    .setAccuracy(10)
+    .setLngLat(lnglat)
+    .show();
+  var locationController = new Mazemap.LocationController({
+    blueDot: blueDot,
+    map: map,
+  });
+  locationController.setState("active");
+  return locationController;
+}
+
+function updateDotLocation(locationController, lnglat) {
+  // Set the state of the controller
+  locationController.updateLocationData({
+    lnglat: lnglat,
+    accuracy: 20,
+  });
+  createMarker(map, lnglat, "red", "T");
+  console.log("---------------- UPDATED LIVE LOCATION ----------------");
+}
+/**-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+/** Live location follow */
+var watchID;
+var geoLoc;
+
+function liveLocationUpdate(locationController) {
+  if (navigator.geolocation) {
+    console.log("------------------ LIVE LOCATION ------------------");
+    // console.log(dot);
+
+    geoLoc = navigator.geolocation;
+    watchID = geoLoc.watchPosition((position) =>
+      showLocation(position, locationController)
+    );
+    // showLocation, errorHandler);
+    // console.log(geoLoc);
+  } else {
+    alert("Sorry, browser does not support geolocation!");
+  }
+}
+function showLocation(position, locationController) {
+  var latitude = position.coords.latitude;
+  var longitude = position.coords.longitude;
+  // var lnglat = { lng: longtidue, lat: latitude };
+  console.log("Latitude : " + latitude + " Longitude: " + longitude);
+  updateDotLocation(locationController, {
+    lng: position.coords.longitude,
+    lat: position.coords.latitude,
+  });
+  // return { lng: longtidue, lat: latitude };
+}
+function errorHandler(err) {
+  if (err.code == 1) {
+    alert("Error: Access is denied!");
+  } else if (err.code == 2) {
+    alert("Error: Position is unavailable!");
+  }
 }
 
 // FOR DEV PURPOSES TO HELP FIGURE OUT COORDINATES OF LOCATIONS ON MAP
@@ -160,7 +217,8 @@ async function getDirections() {
   // Route
   setRoute(liveCoordinates, dest);
   createMarker(map, { lng: longitude, lat: latitude }, "red", "A", true);
-
+  var locationController = dotMarker(map, { lng: longitude, lat: latitude });
+  liveLocationUpdate(locationController);
   closeNav();
 }
 // Function which computes the live location of the device

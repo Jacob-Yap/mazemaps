@@ -124,6 +124,7 @@ function dotMarker(map, lnglat) {
 
 function updateDotLocation(locationController, lnglat) {
   // Set the state of the controller
+
   locationController.updateLocationData({
     lnglat: lnglat,
     accuracy: 20,
@@ -136,14 +137,14 @@ function updateDotLocation(locationController, lnglat) {
 var watchID;
 var geoLoc;
 
-function liveLocationUpdate(locationController) {
+function liveLocationUpdate(locationController, routeController, dest) {
   if (navigator.geolocation) {
     console.log("------------------ LIVE LOCATION ------------------");
     // console.log(dot);
 
     geoLoc = navigator.geolocation;
     watchID = geoLoc.watchPosition((position) =>
-      showLocation(position, locationController)
+      showLocation(position, locationController, routeController, dest)
     );
     // showLocation, errorHandler);
     // console.log(geoLoc);
@@ -151,15 +152,32 @@ function liveLocationUpdate(locationController) {
     alert("Sorry, browser does not support geolocation!");
   }
 }
-function showLocation(position, locationController) {
+function showLocation(position, locationController, routeController, dest) {
   var latitude = position.coords.latitude;
   var longitude = position.coords.longitude;
   // var lnglat = { lng: longtidue, lat: latitude };
+  console.log("-- UPDATED LOCATION --");
   console.log("Latitude : " + latitude + " Longitude: " + longitude);
-  updateDotLocation(locationController, {
-    lng: position.coords.longitude,
-    lat: position.coords.latitude,
+  locationController.updateLocationData({
+    lngLat: {
+      lng: position.coords.longitude,
+      lat: position.coords.latitude,
+    },
   });
+  setRoute(
+    routeController,
+    {
+      lngLat: {
+        lng: position.coords.longitude,
+        lat: position.coords.latitude,
+      },
+    },
+    dest
+  );
+  // updateDotLocation(locationController, {
+  //   lng: position.coords.longitude,
+  //   lat: position.coords.latitude,
+  // });
   // return { lng: longtidue, lat: latitude };
 }
 function errorHandler(err) {
@@ -215,10 +233,14 @@ async function getDirections() {
   };
 
   // Route
-  setRoute(liveCoordinates, dest);
+  var routeController = new Mazemap.RouteController(map, {
+    routeLineColorPrimary: "#0099EA",
+    routeLineColorSecondary: "#888888",
+  });
+  setRoute(routeController, liveCoordinates, dest);
   createMarker(map, { lng: longitude, lat: latitude }, "red", "A", true);
   var locationController = dotMarker(map, { lng: longitude, lat: latitude });
-  liveLocationUpdate(locationController);
+  liveLocationUpdate(locationController, routeController, dest);
   closeNav();
 }
 // Function which computes the live location of the device
@@ -234,14 +256,16 @@ function computeLiveLocation() {
 }
 
 // Function for route controller
-function setRoute(start, dest) {
-  var routeController = new Mazemap.RouteController(map, {
-    routeLineColorPrimary: "#0099EA",
-    routeLineColorSecondary: "#888888",
-  });
+function setRoute(routeController, start, dest) {
+  // var routeController = new Mazemap.RouteController(map, {
+  //   routeLineColorPrimary: "#0099EA",
+  //   routeLineColorSecondary: "#888888",
+  // });
 
+  console.log("-- ROUTED --");
+  console.log(start);
   Mazemap.Data.getRouteJSON(start, dest).then(function (geojson) {
-    console.log("@ geojson", geojson);
+    // console.log("@ geojson", geojson);
     // routeController.clear();
     routeController.setPath(geojson);
 

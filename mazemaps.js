@@ -81,10 +81,6 @@ function createMarker(map, lngLat, colour, icon) {
 
   return marker;
 }
-// function createFollowMarker(map, lnglat) {
-//   // createPopup(marker);
-//   var dotLocationController = dotMarker(map, lngLat);
-// }
 
 /**
  * Creating the popups which show when the markers are clicked
@@ -122,16 +118,6 @@ function dotMarker(map, lnglat) {
   return locationController;
 }
 
-function updateDotLocation(locationController, lnglat) {
-  // Set the state of the controller
-
-  locationController.updateLocationData({
-    lnglat: lnglat,
-    accuracy: 20,
-  });
-  createMarker(map, lnglat, "red", "T");
-  console.log("---------------- UPDATED LIVE LOCATION ----------------");
-}
 /**-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /** Live location follow */
 var watchID;
@@ -175,11 +161,6 @@ function showLocation(position, locationController, routeController, dest) {
     dest,
     true
   );
-  // updateDotLocation(locationController, {
-  //   lng: position.coords.longitude,
-  //   lat: position.coords.latitude,
-  // });
-  // return { lng: longtidue, lat: latitude };
 }
 function errorHandler(err) {
   if (err.code == 1) {
@@ -189,29 +170,7 @@ function errorHandler(err) {
   }
 }
 
-// FOR DEV PURPOSES TO HELP FIGURE OUT COORDINATES OF LOCATIONS ON MAP
-/**
- * On click: Create a marker wherever the user clicks and console log the coordinates
- */
-
-// function onMapClick(e) {
-//   // var longitude = e.longitude;
-//   var lngLat = e.lngLat;
-//   console.log(lngLat);
-//   console.log(Mazemap.Data.getPoiAt(lngLat, 1));
-//   createMarker(map, lngLat);
-// }
-
-/**
- * Side navigation
- */
-function openNav() {
-  document.getElementById("menuBar").style.width = "250px";
-}
-function closeNav() {
-  document.getElementById("menuBar").style.width = "0";
-}
-
+/**-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /**
  * Live location
  */
@@ -224,7 +183,7 @@ async function getDirections() {
   var latitude = position.coords.latitude;
   var longitude = position.coords.longitude;
   var liveCoordinates = {
-    lngLat: { lng: longitude, lat: latitude },
+    lngLat: { lng: position.coords.longitude, lat: position.coords.latitude },
     zLevel: 0,
   };
   console.log(liveCoordinates);
@@ -258,10 +217,6 @@ function computeLiveLocation() {
 
 // Function for route controller
 function setRoute(routeController, start, dest, reroute) {
-  // var routeController = new Mazemap.RouteController(map, {
-  //   routeLineColorPrimary: "#0099EA",
-  //   routeLineColorSecondary: "#888888",
-  // });
   Mazemap.Data.getRouteJSON(start, dest).then(function (geojson) {
     // console.log("@ geojson", geojson);
     // routeController.clear();
@@ -275,6 +230,29 @@ function setRoute(routeController, start, dest, reroute) {
   });
   console.log("-- ROUTED --");
   console.log(start);
+}
+
+// FOR DEV PURPOSES TO HELP FIGURE OUT COORDINATES OF LOCATIONS ON MAP
+/**
+ * On click: Create a marker wherever the user clicks and console log the coordinates
+ */
+
+// function onMapClick(e) {
+//   // var longitude = e.longitude;
+//   var lngLat = e.lngLat;
+//   console.log(lngLat);
+//   console.log(Mazemap.Data.getPoiAt(lngLat, 1));
+//   createMarker(map, lngLat);
+// }
+
+/**
+ * Side navigation
+ */
+function openNav() {
+  document.getElementById("menuBar").style.width = "250px";
+}
+function closeNav() {
+  document.getElementById("menuBar").style.width = "0";
 }
 
 /**

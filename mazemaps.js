@@ -11,7 +11,10 @@ var map = new Mazemap.Map({
 
   // initial zoom
   zoom: 18,
-  zLevel: 3,
+  zLevel: 1,
+  scrollZoom: true,
+  doubleClickZoom: true,
+  touchZoomRotate: true,
 });
 
 // Add zoom and rotation controls to the map.
@@ -250,6 +253,7 @@ function setRoute(routeController, start, dest, reroute) {
  */
 function openNav() {
   document.getElementById("menuBar").style.width = "250px";
+  console.log("------------------------------------------");
 }
 function closeNav() {
   document.getElementById("menuBar").style.width = "0";
@@ -280,3 +284,54 @@ function closeNav() {
 //   var lngLat = e.lngLat;
 //   createMarker(map, lngLat);
 // });
+
+var mySearch = new Mazemap.Search.SearchController({
+  campusid: 159,
+
+  rows: 10,
+
+  withpois: true,
+  withbuilding: false,
+  withtype: false,
+  withcampus: false,
+
+  resultsFormat: "geojson",
+});
+
+var mySearchInput = new Mazemap.Search.SearchInput({
+  container: document.getElementById("search-input-container"),
+  input: document.getElementById("searchInput"),
+  suggestions: document.getElementById("suggestions"),
+  searchController: mySearch,
+}).on("itemclick", function (e) {
+  console.log(
+    "ARGHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"
+  );
+  var poiFeature = e.item;
+  placePoiMarker(poiFeature);
+});
+
+var resultMarker = new Mazemap.MazeMarker({
+  color: "rgb(253, 117, 38)",
+  innerCircle: true,
+  innerCircleColor: "#FFF",
+  size: 34,
+  innerCircleScale: 0.5,
+  zLevel: 1,
+});
+
+function placePoiMarker(poi) {
+  // Get a center point for the POI, because the data can return a polygon instead of just a point sometimes
+  var lngLat = Mazemap.Util.getPoiLngLat(poi);
+  var zLevel = poi.properties.zValue;
+
+  resultMarker.setLngLat(lngLat).setZLevel(poi.properties.zValue).addTo(map);
+
+  map.zLevel = zLevel;
+
+  map.flyTo({ center: lngLat, zoom: 19, duration: 2000 });
+}
+
+map.getCanvas().addEventListener("focus", function () {
+  mySearchInput.hideSuggestions();
+});

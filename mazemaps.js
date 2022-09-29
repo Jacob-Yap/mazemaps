@@ -1,37 +1,26 @@
-/**
- * Initialising the map
- */
-
+// Just the same way to initialize as always...
 var map = new Mazemap.Map({
-  // container id specified in the HTML
   container: "map",
   campuses: 159,
-  // initial position in lngLat format
-  center: { lng: 145.1327, lat: -37.9131 }, // longitude & latitude coordinates of Monash University Clayton Campus
-
-  // initial zoom
-  zoom: 18,
+  center: { lng: 145.1327, lat: -37.9131 },
+  zoom: 16,
   zLevel: 1,
+  zLevelControl: false,
   scrollZoom: true,
   doubleClickZoom: true,
   touchZoomRotate: true,
 });
 
-// Add zoom and rotation controls to the map.
-map.addControl(new Mazemap.mapboxgl.NavigationControl());
-
-/**
- * On load of the map
- */
-
-map.on("load", async function () {
+map.on("load", function () {
+  var customZLevelBar1 = new Mazemap.ZLevelBarControl({
+    className: "custom-zlevel-bar",
+    autoUpdate: true,
+    maxHeight: 300,
+  });
+  map.addControl(customZLevelBar1, "bottom-right");
   loadLocations();
-  // var intervalID = window.setInterval(function () {
-  /// call your function here
-  // liveLocationUpdate();
-  // }, 1000);
-  // map.on("click", onMapClick);  // Create a marker wherever the user clicks
 });
+/**---------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
 let indigenousLocations = "";
 /**
@@ -235,21 +224,9 @@ function setRoute(routeController, start, dest, reroute) {
   console.log(start);
 }
 
-// FOR DEV PURPOSES TO HELP FIGURE OUT COORDINATES OF LOCATIONS ON MAP
+/**------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /**
- * On click: Create a marker wherever the user clicks and console log the coordinates
- */
-
-// function onMapClick(e) {
-//   // var longitude = e.longitude;
-//   var lngLat = e.lngLat;
-//   console.log(lngLat);
-//   console.log(Mazemap.Data.getPoiAt(lngLat, 1));
-//   createMarker(map, lngLat);
-// }
-
-/**
- * Side navigation
+ * SIDE NAVIGATION
  */
 function openNav() {
   document.getElementById("menuBar").style.width = "250px";
@@ -260,31 +237,8 @@ function closeNav() {
 }
 
 /**
- * Search control
+ * SEARCH CONTROLLER
  */
-
-// var searchController = new Mazemap.Search.SearchController({
-//   campusid: 159,
-//   rows: 10,
-//   start: 0,
-//   page: 0,
-//   wihtpois: true,
-//   withbuilding: false,
-//   withtype: false,
-//   withcampus: false,
-//   resultsFormat: "geojson",
-// });
-
-// var searchInput = new Mazemap.Search.SearchInput({
-//   container: document.getElementById("searchBar"),
-//   input: document.getElementById("searchInput"),
-//   suggestions: document.getElementById("suggestions"),
-//   searchController: searchController,
-// }).on("itemClick", function (e) {
-//   var lngLat = e.lngLat;
-//   createMarker(map, lngLat);
-// });
-
 var mySearch = new Mazemap.Search.SearchController({
   campusid: 159,
 
@@ -304,13 +258,13 @@ var mySearchInput = new Mazemap.Search.SearchInput({
   suggestions: document.getElementById("suggestions"),
   searchController: mySearch,
 }).on("itemclick", function (e) {
-  console.log(
-    "ARGHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"
-  );
   var poiFeature = e.item;
   placePoiMarker(poiFeature);
 });
 
+/**
+ * Markers
+ */
 var resultMarker = new Mazemap.MazeMarker({
   color: "rgb(253, 117, 38)",
   innerCircle: true,

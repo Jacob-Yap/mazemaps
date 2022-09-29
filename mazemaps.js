@@ -289,3 +289,13 @@ function placePoiMarker(poi) {
 map.getCanvas().addEventListener("focus", function () {
   mySearchInput.hideSuggestions();
 });
+
+/** HIDE/DISPLAY */
+function toggleDisplay(elementID) {
+  var element = document.getElementById(elementID);
+  if (element.style.display === "none") {
+    element.style.display = "block";
+  } else {
+    element.style.display = "none";
+  }
+}

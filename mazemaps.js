@@ -299,3 +299,15 @@ function toggleDisplay(elementID) {
     element.style.display = "none";
   }
 }
+
+// FOR DEV PURPOSES TO HELP FIGURE OUT COORDINATES OF LOCATIONS ON MAP
+/**
+ * On click: Create a marker wherever the user clicks and console log the coordinates
+ */
+// function onMapClick(e) {
+//   // var longitude = e.longitude;
+//   var lngLat = e.lngLat;
+//   console.log(lngLat);
+//   console.log(Mazemap.Data.getPoiAt(lngLat, 1));
+//   createMarker(map, lngLat);
+// }

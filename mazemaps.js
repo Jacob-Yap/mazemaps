@@ -88,9 +88,12 @@ function createPopup(marker, title, description, link) {
   marker.setPopup(popup);
 }
 
-function setIndigenousLocations() {
+function menuLocations() {
+  console.log("---------------------------");
+  toggleDisplay("controls");
+  toggleDisplay("menuItems");
   setLocations(indigenousLocations);
-  closeNav();
+  // closeNav();
 }
 
 // Creates a blue dot marker and sets it at the specified location on the map
@@ -277,6 +280,7 @@ var resultMarker = new Mazemap.MazeMarker({
 function placePoiMarker(poi) {
   // Get a center point for the POI, because the data can return a polygon instead of just a point sometimes
   var lngLat = Mazemap.Util.getPoiLngLat(poi);
+  console.log(Mazemap.Util.getPoiLngLat(poi));
   var zLevel = poi.properties.zValue;
 
   resultMarker.setLngLat(lngLat).setZLevel(poi.properties.zValue).addTo(map);
@@ -304,10 +308,12 @@ function toggleDisplay(elementID) {
 /**
  * On click: Create a marker wherever the user clicks and console log the coordinates
  */
-// function onMapClick(e) {
-//   // var longitude = e.longitude;
-//   var lngLat = e.lngLat;
-//   console.log(lngLat);
-//   console.log(Mazemap.Data.getPoiAt(lngLat, 1));
-//   createMarker(map, lngLat);
-// }
+map.on("click", onMapClick);
+
+function onMapClick(e) {
+  // var longitude = e.longitude;
+  var lngLat = e.lngLat;
+  console.log(e.lngLat);
+  // console.log(Mazemap.Data.getPoiAt(lngLat, 1));
+  createMarker(map, lngLat);
+}

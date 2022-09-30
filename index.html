@@ -66,11 +66,15 @@
       >&times;</a
     >
     <div id="controls" class="menuControls">MENU</br></div>
-    <div class="list-group">
-      <button type="button" class="list-group-item list-group-item-action" aria-current="true" onclick="setIndigenousLocations()">Locations</button>
-      <button type="button" class="list-group-item list-group-item-action" onclick="getDirections()">Directions</button>
-      <button id="searchButton" type="button" class="list-group-item list-group-item-action" onclick="toggleDisplay('search-input-container')">Search</button>
-
+    <div id = "menuItems"class="list-group">
+      <button type="button" class="list-group-item list-group-item-action" aria-current="true" onclick="menuLocations()">Locations</button>
+      <button type="button" class="list-group-item list-group-item-action" onclick="getDirections()">Directions</button> 
+      <button id="searchButton" type="button" class="list-group-item list-group-item-action">Search</button>
+    </div>
+    <div id="locations" class="locationControls">LOCATIONS</br></div>
+    <div id = "locationItems" class="list-group">
+      <button type="button" class="list-group-item list-group-item-action" aria-current="true">Locations</button>
+      <button type="button" class="list-group-item list-group-item-action">Directions</button>
     </div>
 </div>
 

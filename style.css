@@ -97,3 +97,13 @@ body {
   border: 0;
   display: inline-block;
 }
+.locationControls {
+  position: absolute;
+  box-sizing: border-box;
+  padding: 10px;
+  top: 10px;
+  left: 10px;
+  width: auto;
+  height: auto;
+  visibility: hidden;
+}

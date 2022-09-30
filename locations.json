@@ -28,7 +28,8 @@
   "communityGarden": {
     "title": "Old Man Weed (Gukwonderuk)",
     "description": "Used as a tea to treat coughs and colds",
-    "link": "https://esol-michelle-chen.github.io/MonkeyPox/"
+    "link": "https://esol-michelle-chen.github.io/MonkeyPox/",
+    "lnglat": [145.1318498850968, -37.91167377530547]
   },
   "mathesonLibrary": {
     "title": "Spear Display",
@@ -45,12 +46,14 @@
   "lemonScentedLawn": {
     "title": "Indigenous Trees",
     "description": "Gum trees",
-    "link": "https://esol-michelle-chen.github.io/MonkeyPox/"
+    "link": "https://esol-michelle-chen.github.io/MonkeyPox/",
+    "lnglat": [145.1334107614092, -37.91086726803046]
   },
   "greenChemicalFutures": {
     "title": "FTIR Rock Dating",
     "description": "From GCF First Lab",
-    "link": "https://esol-michelle-chen.github.io/MonkeyPox/"
+    "link": "https://esol-michelle-chen.github.io/MonkeyPox/",
+    "lnglat": [145.130879, -37.909426]
   },
   "MISC": {
     "title": "Monash Indigenous Studies Centre (MISK)",
@@ -60,11 +63,13 @@
   "mainEntrance": {
     "title": "Aboriginal and Torress Islander Flags",
     "description": "Flags are lowered at hald mast (National Sorry Day) and raised again",
-    "link": "https://esol-michelle-chen.github.io/MonkeyPox/"
+    "link": "https://esol-michelle-chen.github.io/MonkeyPox/",
+    "lnglat": [145.1349883334642, -37.91447427507996]
   },
   "scarTree": {
     "title": "Scar Tree",
     "description": "Used to make canoes, shelters, weapons etc.",
-    "link": "https://esol-michelle-chen.github.io/MonkeyPox/"
+    "link": "https://esol-michelle-chen.github.io/MonkeyPox/",
+    "lnglat": [145.13698148394704, -37.907652414582756]
   }
 }

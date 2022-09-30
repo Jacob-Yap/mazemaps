@@ -48,6 +48,7 @@ function setLocations(locationsData) {
         marker,
         location["title"],
         location["description"],
+        location["image"],
         location["link"]
       );
     }
@@ -77,12 +78,12 @@ function createMarker(map, lngLat, colour, icon) {
 /**
  * Creating the popups which show when the markers are clicked
  */
-function createPopup(marker, title, description, link) {
+function createPopup(marker, title, description, image, link) {
   var popup = new Mazemap.Popup({
     closeOnClick: true,
     offset: [0, -27],
   }).setHTML(
-    `<h3>${title}</h3><p>${description} </p><p style="max-width: 200px;"> Click the <a href = ${link} target="_blank"> link</a> and scan the AR marker to view an AR experience</p>`
+    `<h3>${title}</h3><p>${description} </br><img src=${image} width="200" height="200"></p><p style="max-width: 200px;"> Click the <a href = ${link} target="_blank"> link</a> and scan the AR marker to view an AR experience</p>`
   );
 
   marker.setPopup(popup);
@@ -92,6 +93,8 @@ function menuLocations() {
   console.log("---------------------------");
   toggleDisplay("controls");
   toggleDisplay("menuItems");
+  toggleVisibility("locationItems");
+
   setLocations(indigenousLocations);
   // closeNav();
 }
@@ -301,6 +304,15 @@ function toggleDisplay(elementID) {
     element.style.display = "block";
   } else {
     element.style.display = "none";
+  }
+}
+
+function toggleVisibility(elementID) {
+  var element = document.getElementById(elementID);
+  if (element.style.visibility === "visible") {
+    element.style.display = "hidden";
+  } else {
+    element.style.visibility = "visible";
   }
 }
 

@@ -83,7 +83,9 @@ function createPopup(marker, title, description, image, link) {
     closeOnClick: true,
     offset: [0, -27],
   }).setHTML(
-    `<h3>${title}</h3><p>${description} </br><img src=${image} width="200" height="200"></p><p style="max-width: 200px;"> Click the <a href = ${link} target="_blank"> link</a> and scan the AR marker to view an AR experience</p>`
+    `<h3>${title}</h3>
+    <p>${description} </br><img src=${image} width="200" height="200"></p>
+    <p style="max-width: 200px;"> Click the <a href = ${link} target="_blank"> link</a> and scan the AR marker to view an AR experience</p>`
   );
 
   marker.setPopup(popup);
@@ -320,12 +322,12 @@ function toggleVisibility(elementID) {
 /**
  * On click: Create a marker wherever the user clicks and console log the coordinates
  */
-map.on("click", onMapClick);
+// map.on("click", onMapClick);
 
-function onMapClick(e) {
-  // var longitude = e.longitude;
-  var lngLat = e.lngLat;
-  console.log(e.lngLat);
-  // console.log(Mazemap.Data.getPoiAt(lngLat, 1));
-  createMarker(map, lngLat);
-}
+// function onMapClick(e) {
+//   // var longitude = e.longitude;
+//   var lngLat = e.lngLat;
+//   console.log(e.lngLat);
+//   // console.log(Mazemap.Data.getPoiAt(lngLat, 1));
+//   createMarker(map, lngLat);
+// }

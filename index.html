@@ -34,11 +34,114 @@
     integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
     crossorigin="anonymous"
   ></script>
+
+    <!-- Link Swiper's CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
+    />
 </head>
 <body>
-    
-  <!-- SEARCH CONTROLLER -->
   <div id="map" aria-label="map view" tabindex="1" class="mazemap"></div>
+
+  <!-- SEARCH CONTROLLER -->
+  
+  
+  <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+   
+
+      <button class="btn btn-dark" type="button" onclick="openNav()">MENU
+        <!-- <span class="navbar-toggler-icon">MENU</span> -->
+      </button>
+      
+      <div class="input-group-prepend">
+        <!-- <div id="search-input-container" class="search-control-default"> -->
+          <input
+            tabindex="0"
+            id="searchInput"
+            class="search-input"
+            autocomplete="off"
+            type="text"
+            name="search"
+            placeholder="Search"
+          />
+      
+          <div id="suggestions" class="search-suggestions default"></div>
+      </div>
+  </div>
+  <!---->
+  <!-- <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+
+    <div class="input-group">
+      <div class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn btn-secondary">MENU</button>
+      </div> -->
+      <!-- <div class="input-group-prepend"> -->
+        <!-- <div id="search-input-container" class="search-control-default"> -->
+          <!-- <input
+            tabindex="0"
+            id="searchInput"
+            class="search-input"
+            autocomplete="off"
+            type="text"
+            name="search"
+            placeholder="Search"
+          />
+      
+          <div id="suggestions" class="search-suggestions default"></div> -->
+        <!-- </div>  -->
+      <!-- <input type="text" class="form-control" placeholder="Input group example" aria-label="Input group example" aria-describedby="btnGroupAddon"> -->
+    <!-- </div>
+  </div> -->
+
+  <!-- <div id="search-input-container" class="search-control-default">
+    <input
+      tabindex="0"
+      id="searchInput"
+      class="search-input"
+      autocomplete="off"
+      type="text"
+      name="search"
+      placeholder="Search"
+    />
+
+    <div id="suggestions" class="search-suggestions default"></div>
+  </div>  -->
+
+  <script src=".\mazemaps.js"></script>
+
+  <!-- ------------------------------------------------------------------------------------------------------------------------------>
+
+
+
+  <!-- SIDE NAVIGATION -->
+  <!-- <div id="menuControl" class="menuIcon">
+    <button type="button" class="btn btn-light"style="font-size:20px;cursor:pointer" onclick="openNav()">&#9776; Menu</button>
+  </div> -->
+
+ <!-- Menu screen-->
+ <div id="menuBar" class="menu">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
+      >&times;</a
+    >
+    <!-- <a href="#" class="previous round">&#8249;</a> -->
+
+    <div id="controls" class="menuControls">MENU</br></div>
+    <div id = "menuItems"class="list-group">
+      <button type="button" class="list-group-item list-group-item-action" aria-current="true" onclick="menuLocations()">Locations</button>
+      <button type="button" class="list-group-item list-group-item-action" onclick="getDirections()">Directions</button> 
+      <button id="searchButton" type="button" class="list-group-item list-group-item-action">Search</button>
+    </div>
+    <div id="locations" class="locationControls">LOCATIONS</br></div>
+      <div id = "locationItems" class="list-group">
+        <button type="button" class="list-group-item list-group-item-action" aria-current="true">TESTING</button>
+      </div>
+</div>
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------>
+
+  <!-- SEARCH CONTROLLER -->
+  <!-- <div id="map" aria-label="map view" tabindex="1" class="mazemap"></div>
   <div id="search-input-container" class="search-control-default">
     <input
       tabindex="0"
@@ -51,33 +154,35 @@
     />
 
     <div id="suggestions" class="search-suggestions default"></div>
-  </div>
+  </div> -->
 
-  <script src=".\mazemaps.js"></script>
+<!---->
 
-  <!-- SIDE NAVIGATION -->
-  <div id="menuControl" class="menuIcon">
-    <button type="button" class="btn btn-light"style="font-size:20px;cursor:pointer" onclick="openNav()">&#9776; Menu</button>
-  </div>
 
- <!-- Menu screen-->
- <div id="menuBar" class="menu">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
-      >&times;</a
-    >
-    <div id="controls" class="menuControls">MENU</br></div>
-    <div id = "menuItems"class="list-group">
-      <button type="button" class="list-group-item list-group-item-action" aria-current="true" onclick="menuLocations()">Locations</button>
-      <button type="button" class="list-group-item list-group-item-action" onclick="getDirections()">Directions</button> 
-      <button id="searchButton" type="button" class="list-group-item list-group-item-action">Search</button>
+   <!-- Swiper -->
+   <!-- <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">Slide 1</div>
+      <div class="swiper-slide">Slide 2</div>
+      <div class="swiper-slide">Slide 3</div>
+
     </div>
-    <div id="locations" class="locationControls">LOCATIONS</br></div>
-    <div id = "locationItems" class="list-group">
-      <button type="button" class="list-group-item list-group-item-action" aria-current="true">Locations</button>
-      <button type="button" class="list-group-item list-group-item-action">Directions</button>
-    </div>
-</div>
+    <div class="swiper-pagination"></div>
+  </div> -->
+
+  <!-- Swiper JS -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script> --> 
+
+  <!-- Initialize Swiper -->
+  <!-- <script>
+    var swiper = new Swiper(".mySwiper", {
+      pagination: {
+        el: ".swiper-pagination",
+      },
+    });
+  </script>  -->
 
 
+<!-- ------------------------------------------------------------------------------------------------------------------------------>
 
 </body>

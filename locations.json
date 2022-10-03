@@ -9,21 +9,22 @@
   "wominjeka": {
     "title": "Wominjeka Writing",
     "description": "Welcome to Country",
-    "link": "https://esol-michelle-chen.github.io/MonkeyPox/"
+    "link": "https://esol-michelle-chen.github.io/MonkeyPox/",
+    "image": "./images/womindjika.jpg"
   },
   "chancelleryPillar": {
     "title": "Chancellery Pillar",
     "description": "Chancellery pillar textures",
     "lnglat": [145.13454580933677, -37.91235021393629],
-
-    "link": "https://esol-michelle-chen.github.io/MonkeyPox/"
+    "link": "https://esol-michelle-chen.github.io/MonkeyPox/",
+    "image": "./images/chancelleryPillar.jpg"
   },
   "mrsHalls": {
     "title": "MRS Halls - Briggs and Jackomos Halls",
     "description": "Briggs and Jackomos Halls",
     "lnglat": [145.13916948116184, -37.910329158577774],
-
-    "link": "https://esol-michelle-chen.github.io/MonkeyPox/"
+    "link": "https://esol-michelle-chen.github.io/MonkeyPox/",
+    "image": "./images/mrsHalls.jpg"
   },
   "communityGarden": {
     "title": "Old Man Weed (Gukwonderuk)",
@@ -35,8 +36,8 @@
     "title": "Spear Display",
     "description": "Handcrafted indigenous hunting spears",
     "lnglat": [145.13433289910176, -37.91301299847796],
-
-    "link": "https://esol-michelle-chen.github.io/MonkeyPox/"
+    "link": "https://esol-michelle-chen.github.io/MonkeyPox/",
+    "image": "./images/spearDisplay.jpg"
   },
   "castanLawCentre": {
     "title": "Mabo Ruling",
@@ -47,13 +48,15 @@
     "title": "Indigenous Trees",
     "description": "Gum trees",
     "link": "https://esol-michelle-chen.github.io/MonkeyPox/",
-    "lnglat": [145.1334107614092, -37.91086726803046]
+    "lnglat": [145.1334107614092, -37.91086726803046],
+    "image": "./images/lemonScentedTrees.jpg"
   },
   "greenChemicalFutures": {
     "title": "FTIR Rock Dating",
     "description": "From GCF First Lab",
     "link": "https://esol-michelle-chen.github.io/MonkeyPox/",
-    "lnglat": [145.130879, -37.909426]
+    "lnglat": [145.130879, -37.909426],
+    "image": "./images/rockDating.jpg"
   },
   "MISC": {
     "title": "Monash Indigenous Studies Centre (MISK)",
@@ -64,12 +67,14 @@
     "title": "Aboriginal and Torress Islander Flags",
     "description": "Flags are lowered at hald mast (National Sorry Day) and raised again",
     "link": "https://esol-michelle-chen.github.io/MonkeyPox/",
-    "lnglat": [145.1349883334642, -37.91447427507996]
+    "lnglat": [145.1349883334642, -37.91447427507996],
+    "image": "./images/flags.jpg"
   },
   "scarTree": {
     "title": "Scar Tree",
     "description": "Used to make canoes, shelters, weapons etc.",
     "link": "https://esol-michelle-chen.github.io/MonkeyPox/",
-    "lnglat": [145.13698148394704, -37.907652414582756]
+    "lnglat": [145.13698148394704, -37.907652414582756],
+    "image": "./images/scarTree.jpg"
   }
 }

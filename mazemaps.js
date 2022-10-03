@@ -42,6 +42,7 @@ function setLocations(locationsData) {
   for (item in locationsData) {
     console.log(locationsData[item]);
     let location = locationsData[item];
+    createButtons(locationsData[item]);
     if (location["lnglat"]) {
       let marker = createMarker(map, location["lnglat"], "MazeBlue", "AR");
       createPopup(
@@ -98,6 +99,7 @@ function menuLocations() {
   toggleVisibility("locationItems");
 
   setLocations(indigenousLocations);
+  createButtons(5);
   // closeNav();
 }
 
@@ -316,6 +318,22 @@ function toggleVisibility(elementID) {
   } else {
     element.style.visibility = "visible";
   }
+}
+
+/**
+ * Multiple buttons
+ */
+
+function createButtons(location) {
+  let newButton = document.createElement("button");
+  newButton.className = "list-group-item list-group-item-action";
+  newButton.innerText = location["title"];
+  newButton.setAttribute("id", location["title"]);
+  document.querySelector("#locationItems").appendChild(newButton);
+  var element = document.getElementById(location["title"]);
+  element.onclick = function () {
+    map.flyTo({ center: location["lnglat"], zoom: 19, duration: 2000 });
+  };
 }
 
 // FOR DEV PURPOSES TO HELP FIGURE OUT COORDINATES OF LOCATIONS ON MAP
